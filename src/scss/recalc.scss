@@ -312,6 +312,86 @@
   padding: 0 !important;
 }
 
+.gearbox-status,
+.gearbox-integrated-badge {
+  display: inline-flex;
+  font-weight: 800;
+  max-width: 100%;
+  text-align: center;
+}
+
+.gearbox-status {
+  align-items: center;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  gap: 0.42rem;
+  justify-content: center;
+  line-height: 1.2;
+  min-height: 2.1rem;
+  padding: 0.42rem 0.72rem;
+  white-space: normal;
+  width: min(13rem, 100%);
+}
+
+.gearbox-status::before {
+  border-radius: 999px;
+  content: "";
+  flex: 0 0 auto;
+  height: 0.42rem;
+  opacity: 0.7;
+  width: 0.42rem;
+}
+
+.gearbox-status--pass {
+  background-color: rgba(39, 174, 96, 0.1);
+  border: 1px solid rgba(39, 174, 96, 0.26);
+  color: #217a46;
+}
+
+.gearbox-status--pass::before {
+  background-color: #27ae60;
+}
+
+.gearbox-status--fail {
+  background-color: rgba(235, 87, 87, 0.08);
+  border: 1px solid rgba(235, 87, 87, 0.24);
+  color: #8f3030;
+}
+
+.gearbox-status--fail::before {
+  background-color: #eb5757;
+}
+
+.gearbox-motor-name {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-weight: 700;
+}
+
+.gearbox-integrated-badge {
+  background-color: rgba($c5, 0.14);
+  border: 1px solid rgba($c5, 0.32);
+  border-radius: 999px;
+  color: $c7;
+  font-size: 0.65rem;
+  line-height: 1;
+  padding: 0.18rem 0.38rem;
+}
+
+.gearbox-table {
+  th,
+  td {
+    white-space: nowrap;
+  }
+
+  td:not(:first-child),
+  th:not(:first-child) {
+    text-align: right;
+  }
+}
+
 .mechanism-stage-group {
   border-left: 3px solid rgba($c5, 0.34);
   margin: 0 0 1rem;

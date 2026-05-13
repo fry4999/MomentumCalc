@@ -47,7 +47,9 @@ export default function Metadata(props: {
   } else {
     return (
       <Helmet>
-        <title>MoCalc - {props.title}</title>
+        <title>
+          {props.title === undefined ? "MoCalc" : `MoCalc - ${props.title}`}
+        </title>
       </Helmet>
     );
   }

@@ -23,6 +23,7 @@ import chainConfig from "web/calculators/chain";
 import driveConfig from "web/calculators/drive";
 import elevatorConfig from "web/calculators/elevator";
 import flywheelConfig from "web/calculators/flywheel";
+import gearboxConfig from "web/calculators/gearbox";
 import gearLoadConfig from "web/calculators/gearLoad";
 import gearConfig from "web/calculators/gears";
 import intakeConfig from "web/calculators/intake";
@@ -41,6 +42,7 @@ const toolRoutePaths = new Set([
   armConfig.url,
   linearConfig.url,
   intakeConfig.url,
+  gearboxConfig.url,
   ratioConfig.url,
   ratioFinderConfig.url,
   driveConfig.url,
@@ -112,6 +114,10 @@ function App(): JSX.Element {
                   <Route
                     path={intakeConfig.url}
                     element={<intakeConfig.component />}
+                  />
+                  <Route
+                    path={gearboxConfig.url}
+                    element={<gearboxConfig.component />}
                   />
                   <Route
                     path={ratioConfig.url}

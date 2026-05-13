@@ -8,6 +8,7 @@ import chainConfig from "web/calculators/chain";
 import driveConfig from "web/calculators/drive";
 import elevatorConfig from "web/calculators/elevator";
 import flywheelConfig from "web/calculators/flywheel";
+import gearboxConfig from "web/calculators/gearbox";
 import gearLoadConfig from "web/calculators/gearLoad";
 import gearConfig from "web/calculators/gears";
 import intakeConfig from "web/calculators/intake";
@@ -44,6 +45,7 @@ const mechanismTools: Tool[] = [
   { config: armConfig, icon: "arm" },
   { config: flywheelConfig, icon: "flywheel" },
   { config: intakeConfig, icon: "intake" },
+  { config: gearboxConfig, icon: "gears" },
 ];
 
 const drivetrainTools: Tool[] = [
@@ -81,7 +83,7 @@ function ToolCard({ tool }: { tool: Tool }): JSX.Element {
 export default function Home(): JSX.Element {
   return (
     <>
-      <Metadata title="Fast local-first robotics mechanism calculators." />
+      <Metadata />
 
       <main className="dashboard-home">
         <section className="dashboard-hero">
