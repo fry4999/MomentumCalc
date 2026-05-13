@@ -17,12 +17,13 @@ import {
 } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
-import aboutConfig from "web/about";
 import armConfig from "web/calculators/arm";
 import beltsConfig from "web/calculators/belts";
 import chainConfig from "web/calculators/chain";
 import driveConfig from "web/calculators/drive";
+import elevatorConfig from "web/calculators/elevator";
 import flywheelConfig from "web/calculators/flywheel";
+import gearLoadConfig from "web/calculators/gearLoad";
 import gearConfig from "web/calculators/gears";
 import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
@@ -45,9 +46,10 @@ const toolRoutePaths = new Set([
   driveConfig.url,
   motorsConfig.url,
   compressorsConfig.url,
-  aboutConfig.url,
   utilConfig.url,
   gearConfig.url,
+  gearLoadConfig.url,
+  elevatorConfig.url,
 ]);
 
 function MainPageBackButton(): JSX.Element | null {
@@ -132,16 +134,20 @@ function App(): JSX.Element {
                     element={<compressorsConfig.component />}
                   />
                   <Route
-                    path={aboutConfig.url}
-                    element={<aboutConfig.component />}
-                  />
-                  <Route
                     path={utilConfig.url}
                     element={<utilConfig.component />}
                   />
                   <Route
                     path={gearConfig.url}
                     element={<gearConfig.component />}
+                  />
+                  <Route
+                    path={gearLoadConfig.url}
+                    element={<gearLoadConfig.component />}
+                  />
+                  <Route
+                    path={elevatorConfig.url}
+                    element={<elevatorConfig.component />}
                   />
                   <Route path="*" element={<Home />} />
                 </Routes>

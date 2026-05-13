@@ -2,12 +2,13 @@ import Metadata from "common/components/Metadata";
 import { Icon } from "common/components/styling/Building";
 import PageConfig from "common/models/PageConfig";
 import { Link } from "react-router-dom";
-import aboutConfig from "web/about";
 import armConfig from "web/calculators/arm";
 import beltsConfig from "web/calculators/belts";
 import chainConfig from "web/calculators/chain";
 import driveConfig from "web/calculators/drive";
+import elevatorConfig from "web/calculators/elevator";
 import flywheelConfig from "web/calculators/flywheel";
+import gearLoadConfig from "web/calculators/gearLoad";
 import gearConfig from "web/calculators/gears";
 import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
@@ -24,20 +25,28 @@ type Tool = {
   title?: string;
 };
 
-const calculatorTools: Tool[] = [
+const powerTransmissionTools: Tool[] = [
   { config: beltsConfig, icon: "belt" },
   { config: chainConfig, icon: "chain" },
-  { config: linearConfig, icon: "linear", title: "Linear Mechanism" },
-  { config: armConfig, icon: "arm" },
-  { config: flywheelConfig, icon: "flywheel" },
-  { config: intakeConfig, icon: "intake" },
+  { config: gearConfig, icon: "gears", title: "Gears Calculator" },
+  { config: gearLoadConfig, icon: "gears" },
   {
     config: ratioFinderConfig,
     icon: "ratioFinder",
     title: "Ratio Finder",
   },
   { config: ratioConfig, icon: "ratio" },
-  { config: gearConfig, icon: "gears", title: "Gears Calculator" },
+];
+
+const mechanismTools: Tool[] = [
+  { config: elevatorConfig, icon: "linear", title: "Elevator Calculator" },
+  { config: linearConfig, icon: "linear", title: "Linear Mechanism" },
+  { config: armConfig, icon: "arm" },
+  { config: flywheelConfig, icon: "flywheel" },
+  { config: intakeConfig, icon: "intake" },
+];
+
+const drivetrainTools: Tool[] = [
   { config: driveConfig, icon: "gears", title: "Drivetrain Calculator" },
 ];
 
@@ -45,7 +54,6 @@ const referenceTools: Tool[] = [
   { config: motorsConfig, icon: "motor", title: "Motors" },
   { config: compressorsConfig, icon: "motor", title: "Compressors" },
   { config: utilConfig, icon: "utilities", title: "Utilities" },
-  { config: aboutConfig, icon: "about", title: "About" },
 ];
 
 function SectionDivider({ title }: { title: string }): JSX.Element {
@@ -80,13 +88,40 @@ export default function Home(): JSX.Element {
           <h1>Mechanisim Calculator</h1>
         </section>
 
-        <section className="tool-section" aria-labelledby="calculator-heading">
-          <SectionDivider title="Calculators" />
-          <h2 id="calculator-heading" className="is-sr-only">
-            Calculators
+        <section
+          className="tool-section"
+          aria-labelledby="power-transmission-heading"
+        >
+          <SectionDivider title="Power Transmission" />
+          <h2 id="power-transmission-heading" className="is-sr-only">
+            Power Transmission
           </h2>
           <div className="tool-list">
-            {calculatorTools.map((tool) => (
+            {powerTransmissionTools.map((tool) => (
+              <ToolCard key={tool.config.url} tool={tool} />
+            ))}
+          </div>
+        </section>
+
+        <section className="tool-section" aria-labelledby="mechanism-heading">
+          <SectionDivider title="Mechanisms" />
+          <h2 id="mechanism-heading" className="is-sr-only">
+            Mechanisms
+          </h2>
+          <div className="tool-list">
+            {mechanismTools.map((tool) => (
+              <ToolCard key={tool.config.url} tool={tool} />
+            ))}
+          </div>
+        </section>
+
+        <section className="tool-section" aria-labelledby="drivetrain-heading">
+          <SectionDivider title="Drivetrain" />
+          <h2 id="drivetrain-heading" className="is-sr-only">
+            Drivetrain
+          </h2>
+          <div className="tool-list tool-list--single">
+            {drivetrainTools.map((tool) => (
               <ToolCard key={tool.config.url} tool={tool} />
             ))}
           </div>

@@ -266,6 +266,128 @@
   padding: 0 !important;
 }
 
+.mechanism-stage-group {
+  border-left: 3px solid rgba($c5, 0.34);
+  margin: 0 0 1rem;
+  padding-left: 1rem;
+}
+
+.elevator-extension-slider {
+  align-items: center;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: minmax(0, 1fr) 3.75rem;
+  width: 100%;
+}
+
+.elevator-extension-slider__range {
+  appearance: none;
+  border-radius: 999px;
+  cursor: pointer;
+  height: 0.45rem;
+  margin: 0;
+  outline: none;
+  width: 100%;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    background-color: white;
+    border: 3px solid $c5;
+    border-radius: 50%;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 14%),
+      0 0 0 5px rgba($c5, 0.12);
+    height: 1.35rem;
+    width: 1.35rem;
+  }
+
+  &::-moz-range-thumb {
+    background-color: white;
+    border: 3px solid $c5;
+    border-radius: 50%;
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 14%),
+      0 0 0 5px rgba($c5, 0.12);
+    height: 1rem;
+    width: 1rem;
+  }
+
+  &:focus-visible::-webkit-slider-thumb {
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 14%),
+      0 0 0 7px rgba($c5, 0.22);
+  }
+
+  &:focus-visible::-moz-range-thumb {
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 14%),
+      0 0 0 7px rgba($c5, 0.22);
+  }
+}
+
+.elevator-extension-slider__value {
+  background-color: rgba($c5, 0.12);
+  border: 1px solid rgba($c5, 0.28);
+  border-radius: 8px;
+  color: $c9;
+  font-weight: 800;
+  line-height: 1;
+  padding: 0.65rem 0.45rem;
+  text-align: center;
+}
+
+.elevator-visualization {
+  background-color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba($g9, 0.12);
+  border-radius: 8px;
+  color: $c9;
+  display: block;
+  margin: 0 0 1.5rem;
+  max-height: 400px;
+  width: 100%;
+
+  > rect,
+  > line {
+    fill: currentColor;
+    opacity: 0.16;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  text {
+    fill: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-anchor: middle;
+  }
+}
+
+.elevator-visualization__stage {
+  stroke: rgba($g9, 0.58);
+  stroke-width: 2;
+}
+
+.elevator-visualization__measure {
+  opacity: 0.8 !important;
+  stroke: $c5 !important;
+  stroke-dasharray: 4;
+  stroke-width: 1.5 !important;
+}
+
+.elevator-visualization__measurement-badge {
+  fill: rgba(255, 255, 255, 0.94) !important;
+  opacity: 1 !important;
+  stroke: rgba($c5, 0.55) !important;
+  stroke-width: 1 !important;
+}
+
+.elevator-visualization__measurement {
+  fill: $c7 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
 @media (max-width: 900px) {
   .tool-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
