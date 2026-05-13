@@ -24,12 +24,6 @@ type Tool = {
   title?: string;
 };
 
-type Resource = {
-  name: string;
-  url: string;
-  note: string;
-};
-
 const calculatorTools: Tool[] = [
   { config: beltsConfig, icon: "belt" },
   { config: chainConfig, icon: "chain" },
@@ -54,39 +48,6 @@ const referenceTools: Tool[] = [
   { config: aboutConfig, icon: "about", title: "About" },
 ];
 
-const resources: Resource[] = [
-  {
-    name: "2026 Official PDF Manual",
-    url: "https://firstfrc.blob.core.windows.net/frc2026/Manual/2026GameManual.pdf",
-    note: "Game rules and season reference",
-  },
-  {
-    name: "2026 Web Manual",
-    url: "https://www.frcmanual.com/2026",
-    note: "Fast searchable manual mirror",
-  },
-  {
-    name: "2026 Q&A",
-    url: "https://frc-qa.firstinspires.org/",
-    note: "Official clarifications",
-  },
-  {
-    name: "FRC Technical Resources",
-    url: "https://www.firstinspires.org/resource-library/frc/technical-resources",
-    note: "Control system and inspection links",
-  },
-  {
-    name: "Open Alliance",
-    url: "https://www.chiefdelphi.com/c/first/open-alliance/89",
-    note: "Build logs and public design notes",
-  },
-  {
-    name: "FRC Events",
-    url: "https://frc-events.firstinspires.org/2026/Events/EventList",
-    note: "Events, schedules, and results",
-  },
-];
-
 function SectionDivider({ title }: { title: string }): JSX.Element {
   return (
     <div className="section-divider">
@@ -106,23 +67,6 @@ function ToolCard({ tool }: { tool: Tool }): JSX.Element {
         <Icon name="arrow-right" />
       </span>
     </Link>
-  );
-}
-
-function ResourceLink({ resource }: { resource: Resource }): JSX.Element {
-  return (
-    <a
-      className="resource-link"
-      href={resource.url}
-      rel="noreferrer"
-      target="_blank"
-    >
-      <span>
-        <span className="resource-link__title">{resource.name}</span>
-        <span className="resource-link__note">{resource.note}</span>
-      </span>
-      <Icon name="external-link-alt" />
-    </a>
   );
 }
 
@@ -161,18 +105,6 @@ export default function Home(): JSX.Element {
           <div className="tool-list tool-list--reference">
             {referenceTools.map((tool) => (
               <ToolCard key={tool.config.url} tool={tool} />
-            ))}
-          </div>
-        </section>
-
-        <section className="tool-section" aria-labelledby="shortcut-heading">
-          <SectionDivider title="Shortcuts" />
-          <h2 id="shortcut-heading" className="is-sr-only">
-            Shortcuts
-          </h2>
-          <div className="resource-list">
-            {resources.map((resource) => (
-              <ResourceLink key={resource.url} resource={resource} />
             ))}
           </div>
         </section>
