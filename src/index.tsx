@@ -3,6 +3,7 @@ import "@fontsource/play/latin-700.css";
 import { dom, library } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import {
+  faArrowLeft,
   faArrowRight,
   faArrowsAltV,
   faBolt,
@@ -31,6 +32,7 @@ import reportWebVitals from "./reportWebVitals";
 
 dom.watch();
 library.add(
+  faArrowLeft,
   faArrowRight,
   faArrowsAltV,
   faBookmark,

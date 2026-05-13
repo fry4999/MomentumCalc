@@ -2,12 +2,19 @@ import {
   Column,
   Columns,
   Footer,
+  Icon,
   Message,
 } from "common/components/styling/Building";
 import qs from "query-string";
 import { Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
 import aboutConfig from "web/about";
@@ -26,10 +33,43 @@ import compressorsConfig from "web/info/compressors";
 import motorsConfig from "web/info/motors";
 import utilConfig from "web/info/util";
 
+const toolRoutePaths = new Set([
+  beltsConfig.url,
+  chainConfig.url,
+  flywheelConfig.url,
+  armConfig.url,
+  linearConfig.url,
+  intakeConfig.url,
+  ratioConfig.url,
+  ratioFinderConfig.url,
+  driveConfig.url,
+  motorsConfig.url,
+  compressorsConfig.url,
+  aboutConfig.url,
+  utilConfig.url,
+  gearConfig.url,
+]);
+
+function MainPageBackButton(): JSX.Element | null {
+  const { pathname } = useLocation();
+
+  if (!toolRoutePaths.has(pathname)) {
+    return null;
+  }
+
+  return (
+    <Link className="app-back-home" to="/" aria-label="Back to main page">
+      <Icon name="arrow-left" />
+      <span>Main Page</span>
+    </Link>
+  );
+}
+
 function App(): JSX.Element {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <HelmetProvider>
+        <MainPageBackButton />
         <section className="section app-body">
           <div className="container app-container">
             <Suspense

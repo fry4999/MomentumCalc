@@ -120,6 +120,44 @@ th {
   font-weight: 500;
 }
 
+.app-back-home {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba($c5, 0.3);
+  border-radius: 999px;
+  box-shadow:
+    0 1px 1px rgb(0 0 0 / 4%),
+    0 8px 20px rgb(0 0 0 / 7%);
+  color: $c9;
+  display: inline-flex;
+  font-size: 0.92rem;
+  font-weight: 700;
+  gap: 0.45rem;
+  left: clamp(0.75rem, 2vw, 1.25rem);
+  line-height: 1;
+  padding: 0.58rem 0.78rem;
+  position: fixed;
+  text-decoration: none;
+  top: clamp(0.75rem, 2vw, 1.25rem);
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
+  z-index: 30;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: rgba($c5, 0.72);
+    box-shadow:
+      0 2px 3px rgb(0 0 0 / 4%),
+      0 12px 24px rgb(0 0 0 / 9%);
+    color: $c5;
+    transform: translateY(-1px);
+  }
+}
+
 .app-body {
   padding: clamp(0.75rem, 1.8vw, 1.25rem) clamp(1rem, 3.5vw, 3rem)
     clamp(1.5rem, 3vw, 2.5rem);
