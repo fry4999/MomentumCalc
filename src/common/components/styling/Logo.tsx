@@ -6,15 +6,16 @@ export default function Logo(props: {
   const baseUrl = import.meta.env.BASE_URL;
 
   return (
-    <span>
+    <span className="logo-lockup">
       <img
         src={`${baseUrl}logo/motor.svg`}
         className={["svg", `svg-${color}`, "logo-img"].join(" ")}
+        alt=""
       />
-      <b className="logo-text">Mechanisim Calculator</b>
-      <div className="logo-subtitle has-text-centered">
-        A robotics mechanism calculator.
-      </div>
+      <span className="logo-copy">
+        <b className="logo-text">Mechanisim</b>
+        <span className="logo-subtitle">Calculator</span>
+      </span>
     </span>
   );
 }

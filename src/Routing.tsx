@@ -33,8 +33,8 @@ function App(): JSX.Element {
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <HelmetProvider>
         <Nav />
-        <section className="section">
-          <div className="container">
+        <section className="section app-body">
+          <div className="container app-container">
             <Suspense
               fallback={
                 <progress className="progress is-small is-primary" max="100" />
@@ -114,15 +114,13 @@ function App(): JSX.Element {
               </QueryParamProvider>
             </Suspense>
 
-            <Footer>
+            <Footer extraClasses="app-footer">
               <Columns centered>
-                <Column ofTwelve={6}>
-                  <Message color="warning">
+                <Column ofTwelve={8}>
+                  <Message color="warning" extraClasses="app-disclaimer">
                     These calculators are provided as reference <b>only</b>.
-                    These should not be taken as the holy truth of the universe
-                    - they are estimates created in order to guide you to the
-                    best solution. I cannot guarantee the math is perfectly
-                    accurate in all scenarios.
+                    They are estimates intended to guide design decisions, not a
+                    replacement for testing the real mechanism.
                   </Message>
                 </Column>
               </Columns>

@@ -1,13 +1,24 @@
 import { dom, library } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import {
+  faArrowRight,
   faArrowsAltV,
+  faBolt,
   faBookmark,
   faCalculator,
   faCheckSquare,
+  faCircleInfo,
   faCodeBranch,
+  faCompressArrowsAlt,
+  faExternalLinkAlt,
+  faGaugeHigh,
+  faGear,
+  faGears,
   faInfoCircle,
   faLink,
+  faRuler,
+  faRulerCombined,
+  faScrewdriverWrench,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
@@ -19,13 +30,24 @@ import reportWebVitals from "./reportWebVitals";
 
 dom.watch();
 library.add(
+  faArrowRight,
   faArrowsAltV,
   faBookmark,
+  faBolt,
   faCalculator,
   faCheckSquare,
+  faCircleInfo,
   faCodeBranch,
+  faCompressArrowsAlt,
+  faExternalLinkAlt,
+  faGaugeHigh,
+  faGear,
+  faGears,
   faInfoCircle,
   faLink,
+  faRuler,
+  faRulerCombined,
+  faScrewdriverWrench,
   faUsers,
 );
 

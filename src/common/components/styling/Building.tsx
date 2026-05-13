@@ -388,11 +388,14 @@ export function Message(
     );
   return (
     <article
-      className={[
-        "message",
-        props.color === undefined ? "" : colorToClass(props.color),
-        props.size === undefined ? "" : sizeToClass(props.size),
-      ].join(" ")}
+      className={globalClasses(
+        props,
+        [
+          "message",
+          props.color === undefined ? "" : colorToClass(props.color),
+          props.size === undefined ? "" : sizeToClass(props.size),
+        ].join(" "),
+      )}
     >
       {header}
       <div className="message-body">{props.children}</div>
@@ -402,7 +405,7 @@ export function Message(
 
 export function Footer(props: BuildingProps): JSX.Element {
   return (
-    <footer className="footer remove-padding">
+    <footer className={globalClasses(props, "footer remove-padding")}>
       <Content extraClasses="has-text-centered">{props.children}</Content>
     </footer>
   );

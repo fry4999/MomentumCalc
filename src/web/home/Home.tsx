@@ -1,13 +1,7 @@
-import Tile, { ImageSize } from "common/components/home/Tile";
 import Metadata from "common/components/Metadata";
-import {
-  Column,
-  Columns,
-  Icon,
-  Section,
-  Title,
-} from "common/components/styling/Building";
+import { Icon } from "common/components/styling/Building";
 import PageConfig from "common/models/PageConfig";
+import { Link } from "react-router-dom";
 import aboutConfig from "web/about";
 import armConfig from "web/calculators/arm";
 import beltsConfig from "web/calculators/belts";
@@ -24,32 +18,163 @@ import compressorsConfig from "web/info/compressors";
 import motorsConfig from "web/info/motors";
 import utilConfig from "web/info/util";
 
-function Clickable(props: {
+type Tool = {
   config: PageConfig;
-  imageSize?: ImageSize | string;
-}): JSX.Element {
+  label: string;
+  icon: string;
+};
+
+type Resource = {
+  name: string;
+  url: string;
+  note: string;
+};
+
+const calculatorTools: Tool[] = [
+  {
+    config: armConfig,
+    label: "Motion",
+    icon: "ruler-combined",
+  },
+  {
+    config: driveConfig,
+    label: "Motion",
+    icon: "gauge-high",
+  },
+  {
+    config: flywheelConfig,
+    label: "Motion",
+    icon: "bolt",
+  },
+  {
+    config: linearConfig,
+    label: "Motion",
+    icon: "ruler",
+  },
+  {
+    config: beltsConfig,
+    label: "Transmission",
+    icon: "code-branch",
+  },
+  {
+    config: chainConfig,
+    label: "Transmission",
+    icon: "link",
+  },
+  {
+    config: gearConfig,
+    label: "Transmission",
+    icon: "gears",
+  },
+  {
+    config: ratioConfig,
+    label: "Transmission",
+    icon: "calculator",
+  },
+  {
+    config: ratioFinderConfig,
+    label: "Transmission",
+    icon: "screwdriver-wrench",
+  },
+  {
+    config: intakeConfig,
+    label: "Mechanism",
+    icon: "arrow-right",
+  },
+  {
+    config: pneumaticsConfig,
+    label: "Mechanism",
+    icon: "compress-arrows-alt",
+  },
+];
+
+const referenceTools: Tool[] = [
+  {
+    config: motorsConfig,
+    label: "Reference",
+    icon: "bolt",
+  },
+  {
+    config: compressorsConfig,
+    label: "Reference",
+    icon: "gauge-high",
+  },
+  {
+    config: utilConfig,
+    label: "Utilities",
+    icon: "gear",
+  },
+  {
+    config: aboutConfig,
+    label: "Project",
+    icon: "circle-info",
+  },
+];
+
+const resources: Resource[] = [
+  {
+    name: "2026 Official PDF Manual",
+    url: "https://firstfrc.blob.core.windows.net/frc2026/Manual/2026GameManual.pdf",
+    note: "Game rules and season reference",
+  },
+  {
+    name: "2026 Web Manual",
+    url: "https://www.frcmanual.com/2026",
+    note: "Fast searchable manual mirror",
+  },
+  {
+    name: "FRC Q&A",
+    url: "https://frc-qa.firstinspires.org/",
+    note: "Official clarifications",
+  },
+  {
+    name: "FRC Technical Resources",
+    url: "https://www.firstinspires.org/resource-library/frc/technical-resources",
+    note: "Control system and inspection links",
+  },
+  {
+    name: "Open Alliance",
+    url: "https://www.chiefdelphi.com/c/first/open-alliance/89",
+    note: "Build logs and public design notes",
+  },
+  {
+    name: "FRC Events",
+    url: "https://frc-events.firstinspires.org/2026/Events/EventList",
+    note: "Events, schedules, and results",
+  },
+];
+
+function ToolRow({ tool }: { tool: Tool }): JSX.Element {
   return (
-    <Column ofTwelve={6}>
-      <Tile
-        title={props.config.title}
-        to={props.config.url}
-        image={props.config.image}
-        imageSize={props.imageSize}
-      />
-    </Column>
+    <Link className="tool-row" to={tool.config.url}>
+      <span className="tool-row__icon" aria-hidden="true">
+        <Icon name={tool.icon} />
+      </span>
+      <span className="tool-row__content">
+        <span className="tool-row__meta">{tool.label}</span>
+        <span className="tool-row__title">{tool.config.title}</span>
+        <span className="tool-row__description">{tool.config.description}</span>
+      </span>
+      <span className="tool-row__action" aria-hidden="true">
+        <Icon name="arrow-right" />
+      </span>
+    </Link>
   );
 }
 
-function Shortcut(props: {
-  name: string;
-  url: string;
-  size?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-}): JSX.Element {
+function ResourceLink({ resource }: { resource: Resource }): JSX.Element {
   return (
-    <a href={props.url}>
-      <div className="recalc-box">
-        <div className="subtitle">{props.name}</div>
-      </div>
+    <a
+      className="resource-link"
+      href={resource.url}
+      rel="noreferrer"
+      target="_blank"
+    >
+      <span>
+        <span className="resource-link__title">{resource.name}</span>
+        <span className="resource-link__note">{resource.note}</span>
+      </span>
+      <Icon name="external-link-alt" />
     </a>
   );
 }
@@ -57,82 +182,77 @@ function Shortcut(props: {
 export default function Home(): JSX.Element {
   return (
     <>
-      <Metadata title="A robotics mechanism calculator." />
-      <Section extraClasses="remove-padding-top">
-        <Title>
-          <Icon name="calculator" /> Calculators
-        </Title>
+      <Metadata title="Fast local-first robotics mechanism calculators." />
 
-        <Columns gapless multiline>
-          <Clickable config={beltsConfig} />
-          <Clickable config={chainConfig} />
-          <Clickable config={pneumaticsConfig} />
-          <Clickable config={flywheelConfig} />
-          <Clickable config={armConfig} />
-          <Clickable config={linearConfig} />
-          <Clickable config={intakeConfig} />
-          <Clickable config={ratioConfig} />
-          <Clickable config={ratioFinderConfig} />
-          <Clickable config={driveConfig} />
-          <Clickable config={gearConfig} />
-        </Columns>
-      </Section>
+      <main className="dashboard-home">
+        <section className="dashboard-hero">
+          <div>
+            <p className="home-eyebrow">4999-inspired robotics tools</p>
+            <h1>Mechanisim Calculator</h1>
+            <p className="dashboard-hero__copy">
+              A simple, browser-only workspace for checking robot mechanisms
+              quickly. No accounts, no saved team data, no backend.
+            </p>
+          </div>
 
-      <Section extraClasses="remove-padding-top">
-        <Title>
-          <Icon name="info-circle" /> Information
-        </Title>
+          <div className="hero-status" aria-label="Project principles">
+            <span>Static hosted</span>
+            <span>No data storage</span>
+            <span>Fast to operate</span>
+          </div>
+        </section>
 
-        <Columns gapless multiline>
-          <Clickable config={motorsConfig} />
-          <Clickable config={compressorsConfig} />
-          <Clickable config={aboutConfig} imageSize="96x96" />
-          <Clickable config={utilConfig} />
-        </Columns>
-      </Section>
+        <section className="tool-section" aria-labelledby="calculator-heading">
+          <div className="section-heading">
+            <div>
+              <p className="home-eyebrow">Launch</p>
+              <h2 id="calculator-heading">Calculators</h2>
+            </div>
+            <p>
+              Pick the mechanism area first, then tune the numbers inside the
+              calculator.
+            </p>
+          </div>
 
-      <Section extraClasses="remove-padding-top">
-        <Title>
-          <Icon name="bookmark" /> Shortcuts
-        </Title>
+          <div className="tool-list">
+            {calculatorTools.map((tool) => (
+              <ToolRow key={tool.config.url} tool={tool} />
+            ))}
+          </div>
+        </section>
 
-        <Columns multiline gapless>
-          <Column>
-            <Shortcut
-              name="2026 Official PDF Manual"
-              url="https://firstfrc.blob.core.windows.net/frc2026/Manual/2026GameManual.pdf"
-            />
-            <Shortcut
-              name="2026 Unofficial Web Manual"
-              url="https://www.frcmanual.com/2026"
-            />
-            <Shortcut name="2026 Q&A" url="https://frc-qa.firstinspires.org/" />
-          </Column>
+        <section className="home-grid" aria-label="References and resources">
+          <div className="utility-panel">
+            <div className="section-heading section-heading--compact">
+              <div>
+                <p className="home-eyebrow">Lookup</p>
+                <h2>Reference</h2>
+              </div>
+            </div>
 
-          <Column>
-            <Shortcut
-              name="FRC Resources"
-              url="https://www.firstinspires.org/resource-library/frc/technical-resources"
-            />
+            <div className="compact-tool-list">
+              {referenceTools.map((tool) => (
+                <ToolRow key={tool.config.url} tool={tool} />
+              ))}
+            </div>
+          </div>
 
-            <Shortcut
-              name="Open Alliance"
-              url="https://www.chiefdelphi.com/c/first/open-alliance/89"
-            />
-          </Column>
+          <div className="utility-panel">
+            <div className="section-heading section-heading--compact">
+              <div>
+                <p className="home-eyebrow">External</p>
+                <h2>Resources</h2>
+              </div>
+            </div>
 
-          <Column>
-            <Shortcut
-              name="2026 Team/Event Search"
-              url="https://www.firstinspires.org/team-event-search#type=teams&sort=name&programs=FRC&year=2026"
-            />
-            <Shortcut
-              name="2026 FRC-Events"
-              url="https://frc-events.firstinspires.org/2026/Events/EventList"
-            />
-          </Column>
-        </Columns>
-      </Section>
+            <div className="resource-list">
+              {resources.map((resource) => (
+                <ResourceLink key={resource.url} resource={resource} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
     </>
   );
 }

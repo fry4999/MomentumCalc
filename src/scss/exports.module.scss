@@ -6,10 +6,10 @@
 // $secondary: white;
 // $accent: #204b57;
 
-/* Colors: https://refactoringui.com/previews/building-your-color-palette/ */
-$c1: #e7f8f4;
-$c5: #1d6f5f;
-$c9: #12312b;
+/* Colors: neutral tool surface with a 4999-ish amber accent. */
+$c1: #fff7df;
+$c5: #f2a900;
+$c9: #151515;
 
 $c3: mix($c1, $c5, 50%);
 $c7: mix($c5, $c9, 50%);
@@ -32,22 +32,22 @@ $c8: mix($c7, $c9, 50%);
 // $g6: mix($g5, $g7, 50%);
 // $g8: mix($g7, $g9, 50%);
 
-$g1: #f7fafc;
-$g2: #edf2f7;
-$g3: #e2e8f0;
-$g4: #cbd5e0;
-$g5: #a0aec0;
-$g6: #718096;
-$g7: #4a5568;
-$g8: #2d3748;
-$g9: #1a202c;
+$g1: #f6f7f8;
+$g2: #e9ecef;
+$g3: #d9dee3;
+$g4: #c4cbd2;
+$g5: #98a1ab;
+$g6: #68717a;
+$g7: #454b51;
+$g8: #292d31;
+$g9: #151719;
 
 $g1_5: mix($g1, $g2, 50%);
 
 $unused: red;
 
 /* Bulma vars */
-$primary: $c5;
+$primary: $g9;
 
 $black: $g9;
 $black-bis: $g8;
@@ -72,7 +72,7 @@ $grey-darker: $g8;
 // $subtitle-color: $g7;
 
 $box-shadow: 0 0.5em 0.5em -0.3em rgba($black, 0.1);
-$box-radius: 24px;
+$box-radius: 8px;
 
 $input-disabled-background-color: $g2;
 $footer-background-color: white;
@@ -81,13 +81,13 @@ $input-radius: 8px;
 /* Component colors */
 $chart_colors: (
   $primary,
-  #fc7a57,
-  #59cd90,
-  #2f195f,
-  #832232,
-  #011936,
-  #5c8001,
-  #42253b
+  $c5,
+  #2f80ed,
+  #27ae60,
+  #eb5757,
+  #7f52ff,
+  #00838f,
+  #8a5a00
 );
 
 $pdp_colors: (
