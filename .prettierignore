@@ -1,0 +1,7 @@
+build/
+node_modules/
+.vscode/
+coverage/
+src/web/calculators/readmes.tsx
+**/*.md
+.vercel/

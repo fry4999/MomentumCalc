@@ -1,63 +1,37 @@
 # Mechanisim Calculator
 
-A static, GitHub Pages-ready framework for future robotics mechanism
-calculators. No calculations are implemented yet.
+A rebranded, static robotics mechanism calculator app based on the MIT-licensed
+ReCalc project.
 
-## Project Goals
+The site is client-side only. Analytics, external scouting API calls, credential
+helpers, and server deployment files have been removed so the app can be hosted
+as static GitHub Pages output.
 
-- Host directly on GitHub Pages.
-- Keep the site frontend-only: no backend API, database, accounts, cookies, or
-  saved user data.
-- Stay fast and dependency-free with plain HTML, CSS, and JavaScript modules.
-- Leave clear places to add future tools for arms, rollers, swerve speeds,
-  elevators, flywheels, belts, chain, gearing, and drivetrain planning.
-
-## Run Locally
-
-Open `index.html` directly in a browser, or serve the folder locally:
+## Local Setup
 
 ```sh
-python3 -m http.server 8080
+pnpm install
+pnpm start
 ```
 
-Then open `http://localhost:8080`.
+The dev server runs at `http://localhost:3000`.
+
+## Build
+
+```sh
+pnpm build
+```
+
+The static output is written to `build/`. The build also creates `build/404.html`
+for GitHub Pages client-side routing and `build/.nojekyll`.
 
 ## GitHub Pages
 
-This repo includes `.github/workflows/pages.yml`, which deploys the static site
-from the repository root using GitHub Actions.
+This repo includes `.github/workflows/pages.yml`. Push to `main`, set Pages to
+use GitHub Actions, and the workflow will build and deploy the static site.
 
-After pushing to GitHub:
+## Attribution
 
-1. Open the repository settings.
-2. Go to **Pages**.
-3. Set the source to **GitHub Actions**.
-4. Push to `main`, or run the workflow manually.
-
-Because there is no build step, the deployed site is the same static file tree
-you see in the repository.
-
-## Structure
-
-```text
-.
-├── index.html
-├── assets/
-│   ├── mechanism-board.svg
-│   └── mechanism-mark.svg
-├── src/
-│   ├── main.js
-│   ├── styles.css
-│   ├── toolCatalog.js
-│   └── tools/
-│       └── README.md
-└── .github/
-    └── workflows/
-        └── pages.yml
-```
-
-## Adding Calculators Later
-
-Use `src/toolCatalog.js` for tool metadata and add future browser-only modules
-under `src/tools/`. Keep formulas as pure functions so they can be tested
-without UI code.
+This app is based on [tervay/recalc](https://github.com/tervay/recalc), which is
+licensed under the MIT License. The original copyright notice is preserved in
+`LICENSE.md`.
