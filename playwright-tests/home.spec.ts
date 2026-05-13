@@ -8,7 +8,6 @@ test.describe("Home page", () => {
   [
     ["Belt Calculator", "/belts"],
     ["Chain Calculator", "/chains"],
-    ["Pneumatics Calculator", "/pneumatics"],
     ["Flywheel Calculator", "/flywheel"],
     ["Arm Calculator", "/arm"],
     ["Linear Mechanism Calculator", "/linear"],

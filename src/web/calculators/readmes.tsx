@@ -4,9 +4,6 @@ import React from "react";
 import _beltsReadme from "web/calculators/belts/readme.md?raw";
 export const BeltsReadme = React.memo(() => <Markdown markdownContent={_beltsReadme} />);
 
-import _pneumaticsReadme from "web/calculators/pneumatics/readme.md?raw";
-export const PneumaticsReadme = React.memo(() => <Markdown markdownContent={_pneumaticsReadme} />);
-
 import _flywheelReadme from "web/calculators/flywheel/readme.md?raw";
 export const FlywheelReadme = React.memo(() => <Markdown markdownContent={_flywheelReadme} />);
 

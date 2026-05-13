@@ -20,7 +20,6 @@ import flywheelConfig from "web/calculators/flywheel";
 import gearConfig from "web/calculators/gears";
 import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
-import pneumaticsConfig from "web/calculators/pneumatics";
 import ratioConfig from "web/calculators/ratio";
 import ratioFinderConfig from "web/calculators/ratioFinder";
 import Home from "web/home/Home";
@@ -57,10 +56,6 @@ function App(): JSX.Element {
                   <Route
                     path={chainConfig.url}
                     element={<chainConfig.component />}
-                  />
-                  <Route
-                    path={pneumaticsConfig.url}
-                    element={<pneumaticsConfig.component />}
                   />
                   <Route
                     path={flywheelConfig.url}
@@ -110,6 +105,7 @@ function App(): JSX.Element {
                     path={gearConfig.url}
                     element={<gearConfig.component />}
                   />
+                  <Route path="*" element={<Home />} />
                 </Routes>
               </QueryParamProvider>
             </Suspense>

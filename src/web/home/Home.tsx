@@ -11,7 +11,6 @@ import flywheelConfig from "web/calculators/flywheel";
 import gearConfig from "web/calculators/gears";
 import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
-import pneumaticsConfig from "web/calculators/pneumatics";
 import ratioConfig from "web/calculators/ratio";
 import ratioFinderConfig from "web/calculators/ratioFinder";
 import compressorsConfig from "web/info/compressors";
@@ -45,7 +44,6 @@ const calculatorTools: Tool[] = [
   { config: ratioConfig, icon: "calculator" },
   { config: gearConfig, icon: "gears", title: "Gears Calculator" },
   { config: driveConfig, icon: "gauge-high", title: "Drivetrain Calculator" },
-  { config: pneumaticsConfig, icon: "compress-arrows-alt" },
 ];
 
 const referenceTools: Tool[] = [
@@ -138,13 +136,8 @@ export default function Home(): JSX.Element {
           <h1>Mechanisim Calculator</h1>
           <p className="dashboard-hero__copy">
             A fast, browser-only mechanical design calculator for FIRST
-            Robotics. Static hosted, no accounts, and no stored team data.
+            Robotics.
           </p>
-          <div className="hero-status" aria-label="Project principles">
-            <span>Static hosted</span>
-            <span>No backend</span>
-            <span>Fast to operate</span>
-          </div>
         </section>
 
         <section className="tool-section" aria-labelledby="calculator-heading">

@@ -87,26 +87,6 @@
   max-width: 41rem;
 }
 
-.hero-status {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 1.2rem;
-
-  span {
-    background-color: rgba($c5, 0.14);
-    border: 1px solid rgba($c5, 0.32);
-    border-radius: 999px;
-    color: $g8;
-    font-size: 0.82rem;
-    font-weight: 750;
-    line-height: 1;
-    padding: 0.5rem 0.72rem;
-    white-space: nowrap;
-  }
-}
-
 .tool-section {
   display: flex;
   flex-direction: column;
