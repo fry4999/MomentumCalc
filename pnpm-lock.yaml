@@ -14,6 +14,9 @@ importers:
       '@creativebulma/bulma-tooltip':
         specifier: 1.2.0
         version: 1.2.0
+      '@fontsource/play':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@fortawesome/fontawesome-svg-core':
         specifier: 6.5.1
         version: 6.5.1
@@ -541,6 +544,9 @@ packages:
     peerDependenciesMeta:
       '@noble/hashes':
         optional: true
+
+  '@fontsource/play@5.2.8':
+    resolution: {integrity: sha512-nYxAYZsWO7hEFEUWx/lZWaNhWfi34Pbi0Rb3vbxskeaVpele1I6Q5os0bgnL9pTBMNuiG6UX+e6tF/2AC8tvKA==}
 
   '@fortawesome/fontawesome-common-types@6.5.1':
     resolution: {integrity: sha512-GkWzv+L6d2bI5f/Vk6ikJ9xtl7dfXtoRu3YGE6nq0p/FFqA1ebMOAWg3XgRyb0I6LYyYkiAo+3/KrwuBp8xG7A==}
@@ -3173,6 +3179,8 @@ snapshots:
   '@eslint/js@8.51.0': {}
 
   '@exodus/bytes@1.15.0': {}
+
+  '@fontsource/play@5.2.8': {}
 
   '@fortawesome/fontawesome-common-types@6.5.1': {}
 

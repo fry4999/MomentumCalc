@@ -1,3 +1,5 @@
+import "@fontsource/play/latin-400.css";
+import "@fontsource/play/latin-700.css";
 import { dom, library } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import {

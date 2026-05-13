@@ -61,10 +61,10 @@
 
   h1 {
     color: $c9;
-    font-size: clamp(3.35rem, 8.5vw, 6.5rem);
-    font-weight: 900;
+    font-size: clamp(3.1rem, 7.2vw, 5.85rem);
+    font-weight: 700;
     letter-spacing: 0;
-    line-height: 0.92;
+    line-height: 0.96;
     margin: 0;
     max-width: none;
   }
@@ -73,7 +73,7 @@
 .home-eyebrow {
   color: $c5;
   font-size: 0.85rem;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0;
   margin-bottom: 0.85rem;
   text-transform: uppercase;
@@ -109,7 +109,7 @@
   span {
     color: $c5;
     font-size: 0.86rem;
-    font-weight: 850;
+    font-weight: 700;
     letter-spacing: 0;
     line-height: 1;
     text-transform: uppercase;
@@ -182,7 +182,7 @@
 .tool-row__title {
   color: $g9;
   font-size: 1.04rem;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.2;
   min-width: 0;
 }
