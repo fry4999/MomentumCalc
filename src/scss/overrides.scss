@@ -116,87 +116,8 @@ th {
   font-weight: 500 !important;
 }
 
-.logo-lockup {
-  align-items: center;
-  display: inline-flex;
-  gap: 0.55rem;
-}
-
-.logo-img {
-  border-radius: 8px;
-  height: 2.25rem;
-  max-height: 2.25rem !important;
-  padding-right: 0 !important;
-  vertical-align: middle !important;
-  width: 2.25rem;
-
-  &.svg-black,
-  &.svg-white {
-    filter: none;
-  }
-}
-
-.logo-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 0.05rem;
-  line-height: 1;
-}
-
-.logo-text {
-  color: $g9;
-  font-size: 1.16rem;
-  font-weight: 700;
-  letter-spacing: 0;
-}
-
-.logo-subtitle {
-  color: $g6;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
-
-.logo-lockup--white {
-  .logo-img {
-    background-color: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
-  }
-
-  .logo-text,
-  .logo-subtitle {
-    color: white;
-  }
-}
-
 .panel-heading {
   font-weight: 500;
-}
-
-.app-navbar {
-  align-items: center;
-  background: $c5;
-  border-bottom: 4px solid $c7;
-  display: flex;
-  justify-content: center;
-  min-height: 80px;
-  padding: 0.7rem clamp(1rem, 3.5vw, 2.75rem);
-  position: sticky;
-  top: 0;
-  z-index: 20;
-}
-
-.app-brand {
-  color: white;
-  display: inline-flex;
-  text-decoration: none;
-
-  &:hover,
-  &:active,
-  &:focus {
-    color: white;
-  }
 }
 
 .app-body {

@@ -4,7 +4,6 @@ import {
   Footer,
   Message,
 } from "common/components/styling/Building";
-import Nav from "common/components/styling/Nav";
 import qs from "query-string";
 import { Suspense } from "react";
 import { HelmetProvider } from "react-helmet-async";
@@ -31,7 +30,6 @@ function App(): JSX.Element {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <HelmetProvider>
-        <Nav />
         <section className="section app-body">
           <div className="container app-container">
             <Suspense
