@@ -85,7 +85,12 @@ export default function Home(): JSX.Element {
 
       <main className="dashboard-home">
         <section className="dashboard-hero">
-          <h1>Mechanisim Calculator</h1>
+          <img
+            alt="Momentum 4999"
+            className="dashboard-logo"
+            src={`${import.meta.env.BASE_URL}logo/momentum-logo.png`}
+          />
+          <h1 className="dashboard-wordmark">MoCalc</h1>
         </section>
 
         <section

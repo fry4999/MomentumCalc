@@ -28,7 +28,8 @@ import {
 } from "web/calculators/elevator/math";
 
 const riggingChoices = ["Cascade", "Continuous"];
-const stageColors = ["#2f5fa8", "#3d72bd", "#5d8fd6", "#7ca9ee"];
+const brandBlue = "#05cdfd";
+const stageColors = [brandBlue, "#35d8fd", "#67e2fe", "#98edfe"];
 
 function ExtensionSlider(props: {
   expanded?: boolean;
@@ -53,7 +54,7 @@ function ExtensionSlider(props: {
         onInput={(event) => updateValue(event.currentTarget.value)}
         step={1}
         style={{
-          background: `linear-gradient(90deg, #2f5fa8 0%, #2f5fa8 ${boundedValue}%, rgba(16, 31, 56, 0.14) ${boundedValue}%, rgba(16, 31, 56, 0.14) 100%)`,
+          background: `linear-gradient(90deg, ${brandBlue} 0%, ${brandBlue} ${boundedValue}%, rgba(16, 31, 56, 0.14) ${boundedValue}%, rgba(16, 31, 56, 0.14) 100%)`,
         }}
         type="range"
         value={boundedValue}

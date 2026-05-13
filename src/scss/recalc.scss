@@ -53,18 +53,27 @@
   color: $g9;
   display: flex;
   flex-direction: column;
-  min-height: 260px;
+  gap: clamp(0.65rem, 2vw, 1rem);
+  min-height: 360px;
   align-items: center;
   justify-content: center;
-  padding: clamp(1rem, 4vw, 2.25rem) 1rem clamp(1.8rem, 5vw, 3rem);
+  padding: clamp(1.25rem, 4vw, 2.6rem) 1rem clamp(1.9rem, 5vw, 3.25rem);
   text-align: center;
 
-  h1 {
-    color: $c9;
-    font-size: clamp(3.1rem, 7.2vw, 5.85rem);
-    font-weight: 700;
+  .dashboard-logo {
+    display: block;
+    height: auto;
+    max-width: clamp(180px, 30vw, 310px);
+    width: 100%;
+  }
+
+  .dashboard-wordmark {
+    color: $g9;
+    font-family: "Stormfaze", "Play", $family-sans-serif;
+    font-size: clamp(3.35rem, 9vw, 7.8rem);
+    font-weight: 400;
     letter-spacing: 0;
-    line-height: 0.96;
+    line-height: 0.82;
     margin: 0;
     max-width: none;
   }
@@ -260,7 +269,44 @@
   color: $c7;
 }
 
+.cots-sprocket-vendor--vbeltguys {
+  background-color: rgba(0, 131, 143, 0.12);
+  border-color: rgba(0, 131, 143, 0.32);
+  color: #00616b;
+}
+
+.cots-sprocket-vendor--printed {
+  background-color: rgba($g7, 0.12);
+  border-color: rgba($g7, 0.28);
+  color: $g7;
+}
+
+.cots-part-count {
+  background-color: rgba($c5, 0.16);
+  border-radius: 999px;
+  color: $c7;
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-left: 0.35rem;
+  padding: 0.18rem 0.42rem;
+  vertical-align: middle;
+}
+
+.cots-part-empty {
+  color: $g6;
+  padding: 1.4rem 0.75rem !important;
+  text-align: center;
+}
+
 .cots-sprocket-divider td {
+  background-color: rgba($c5, 0.18);
+  height: 1px;
+  padding: 0 !important;
+}
+
+.cots-part-divider td {
   background-color: rgba($c5, 0.18);
   height: 1px;
   padding: 0 !important;
@@ -355,9 +401,9 @@
   }
 
   text {
-    fill: white;
+    fill: $g9;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0;
     text-anchor: middle;
   }

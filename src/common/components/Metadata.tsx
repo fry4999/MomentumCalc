@@ -11,11 +11,8 @@ export default function Metadata(props: {
   if (props.pageConfig != undefined) {
     return (
       <Helmet>
-        <title>Mechanisim Calculator - {props.pageConfig.title}</title>
-        <meta
-          name="og:title"
-          content={"Mechanisim Calculator - " + props.pageConfig.title}
-        />
+        <title>MoCalc - {props.pageConfig.title}</title>
+        <meta name="og:title" content={"MoCalc - " + props.pageConfig.title} />
 
         <link
           rel="canonical"
@@ -39,22 +36,18 @@ export default function Metadata(props: {
 
         <meta
           name="description"
-          content={
-            "Mechanisim Calculator (for FRC) - " + props.pageConfig.description
-          }
+          content={"MoCalc (for FRC) - " + props.pageConfig.description}
         />
         <meta
           name="og:description"
-          content={
-            "Mechanisim Calculator (for FRC) - " + props.pageConfig.description
-          }
+          content={"MoCalc (for FRC) - " + props.pageConfig.description}
         />
       </Helmet>
     );
   } else {
     return (
       <Helmet>
-        <title>Mechanisim Calculator - {props.title}</title>
+        <title>MoCalc - {props.title}</title>
       </Helmet>
     );
   }

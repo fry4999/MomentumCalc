@@ -16,3 +16,11 @@
 
 @import "./overrides.scss";
 @import "./recalc.scss";
+
+@font-face {
+  font-family: "Stormfaze";
+  src: url("../assets/fonts/Stormfaze.otf") format("opentype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}

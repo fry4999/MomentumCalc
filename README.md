@@ -1,4 +1,4 @@
-# Mechanisim Calculator
+# MoCalc
 
 A static robotics mechanism calculator app for quick mechanical design
 estimates.

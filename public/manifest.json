@@ -1,25 +1,25 @@
 {
-  "short_name": "Mechanisim Calculator",
-  "name": "Mechanisim Calculator - a robotics mechanism calculator.",
+  "short_name": "MoCalc",
+  "name": "MoCalc - a robotics mechanism calculator.",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "logo/momentum-logo-64.png",
+      "sizes": "64x64",
+      "type": "image/png"
     },
     {
-      "src": "logo/motor_white_192.png",
+      "src": "logo/momentum-logo-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo/motor_white_512.png",
+      "src": "logo/momentum-logo-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#1d6f5f",
+  "theme_color": "#05cdfd",
   "background_color": "#ffffff"
 }

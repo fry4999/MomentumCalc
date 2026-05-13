@@ -86,20 +86,30 @@ export default class Belt extends Model {
         },
       ),
     );
+    const vbgInventory = Array.from(
+      new Map(
+        _vbg
+          .filter((b) => b.responseCode === 200)
+          .map((b) => [b.generatedUrl, b]),
+      ).values(),
+    );
     const vbgBelts = include_vbg
-      ? [...new Set(_vbg.filter((b) => b.responseCode === 200))].map((b) =>
-          Belt.fromTeeth(
+      ? vbgInventory.map((b) => {
+          const urlSegments = b.generatedUrl.split("/").filter(Boolean);
+          const sku = urlSegments[urlSegments.length - 1];
+
+          return Belt.fromTeeth(
             b.teeth,
             new Measurement(Number(b.pitch.replace(" mm", "")), "mm"),
             new Measurement(Number(b.width.replace(" mm", "")), "mm"),
             {
               url: b.generatedUrl,
               vendor: "VBeltGuys",
-              sku: b.generatedUrl.split("/")[b.generatedUrl.split("/").length],
+              sku,
               type: "HTD",
             },
-          ),
-        )
+          );
+        })
       : [];
 
     return frcBelts.concat(vbgBelts);
