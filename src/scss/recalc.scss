@@ -60,7 +60,7 @@
   text-align: center;
 
   h1 {
-    color: $g9;
+    color: $c9;
     font-size: clamp(3.35rem, 8.5vw, 6.5rem);
     font-weight: 900;
     letter-spacing: 0;
@@ -95,19 +95,19 @@
 
 .section-divider {
   align-items: center;
-  color: $g9;
+  color: $c5;
   display: grid;
   gap: 0.85rem;
   grid-template-columns: auto minmax(0, 1fr);
 
   &::after {
-    background-color: rgba($g9, 0.14);
+    background-color: rgba($c5, 0.22);
     content: "";
     height: 1px;
   }
 
   span {
-    color: $g9;
+    color: $c5;
     font-size: 0.86rem;
     font-weight: 850;
     letter-spacing: 0;
@@ -165,9 +165,9 @@
 .tool-row__icon {
   align-items: center;
   background-color: rgba($c5, 0.16);
-  border: 1px solid rgba($c5, 0.24);
+  border: 1px solid rgba($c5, 0.28);
   border-radius: 12px;
-  color: $g9;
+  color: $c9;
   display: inline-flex;
   height: 2.55rem;
   justify-content: center;
