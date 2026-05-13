@@ -77,7 +77,6 @@ export default function Home(): JSX.Element {
 
       <main className="dashboard-home">
         <section className="dashboard-hero">
-          <p className="home-eyebrow">4999-inspired mechanism tools</p>
           <h1>Mechanisim Calculator</h1>
           <p className="dashboard-hero__copy">
             A fast, browser-only mechanical design calculator for FIRST
