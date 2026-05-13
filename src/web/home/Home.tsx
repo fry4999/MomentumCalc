@@ -78,10 +78,6 @@ export default function Home(): JSX.Element {
       <main className="dashboard-home">
         <section className="dashboard-hero">
           <h1>Mechanisim Calculator</h1>
-          <p className="dashboard-hero__copy">
-            A fast, browser-only mechanical design calculator for FIRST
-            Robotics.
-          </p>
         </section>
 
         <section className="tool-section" aria-labelledby="calculator-heading">
