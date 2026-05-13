@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-labelledby="title desc">
+  <title id="title">Mechanism planning board</title>
+  <desc id="desc">A simplified robotics mechanism diagram with wheels, arms, belts, and module paths.</desc>
+  <rect width="720" height="520" fill="#eaf0ec"/>
+  <path d="M70 110h580M70 210h580M70 310h580M70 410h580M120 60v400M260 60v400M400 60v400M540 60v400" stroke="#c9d6cf" stroke-width="2"/>
+  <rect x="95" y="320" width="250" height="70" rx="8" fill="#ffffff" stroke="#17211f" stroke-width="5"/>
+  <circle cx="140" cy="398" r="28" fill="#2f6fed" stroke="#17211f" stroke-width="5"/>
+  <circle cx="300" cy="398" r="28" fill="#2f7d57" stroke="#17211f" stroke-width="5"/>
+  <path d="M210 320 345 150" fill="none" stroke="#17211f" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="210" cy="320" r="18" fill="#b65f2a" stroke="#17211f" stroke-width="5"/>
+  <circle cx="345" cy="150" r="22" fill="#b08425" stroke="#17211f" stroke-width="5"/>
+  <path d="M440 150h130l40 90-40 90H440l-40-90z" fill="#ffffff" stroke="#17211f" stroke-width="5"/>
+  <circle cx="505" cy="240" r="58" fill="none" stroke="#6d5bbf" stroke-width="14"/>
+  <circle cx="505" cy="240" r="18" fill="#ffffff" stroke="#17211f" stroke-width="5"/>
+  <path d="M440 370c48-44 96-44 144 0" fill="none" stroke="#237a77" stroke-width="12" stroke-linecap="round"/>
+  <path d="M452 388h120" stroke="#17211f" stroke-width="8" stroke-linecap="round"/>
+  <rect x="430" y="392" width="164" height="28" rx="8" fill="#ffffff" stroke="#17211f" stroke-width="5"/>
+</svg>
