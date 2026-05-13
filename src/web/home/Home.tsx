@@ -13,13 +13,14 @@ import intakeConfig from "web/calculators/intake";
 import linearConfig from "web/calculators/linear";
 import ratioConfig from "web/calculators/ratio";
 import ratioFinderConfig from "web/calculators/ratioFinder";
+import RecalcIcon, { RecalcIconName } from "web/home/recalcIcons";
 import compressorsConfig from "web/info/compressors";
 import motorsConfig from "web/info/motors";
 import utilConfig from "web/info/util";
 
 type Tool = {
   config: PageConfig;
-  icon: string;
+  icon: RecalcIconName;
   title?: string;
 };
 
@@ -30,27 +31,27 @@ type Resource = {
 };
 
 const calculatorTools: Tool[] = [
-  { config: beltsConfig, icon: "code-branch" },
-  { config: chainConfig, icon: "link" },
-  { config: linearConfig, icon: "ruler", title: "Linear Mechanism" },
-  { config: armConfig, icon: "ruler-combined" },
-  { config: flywheelConfig, icon: "bolt" },
-  { config: intakeConfig, icon: "arrow-right" },
+  { config: beltsConfig, icon: "belt" },
+  { config: chainConfig, icon: "chain" },
+  { config: linearConfig, icon: "linear", title: "Linear Mechanism" },
+  { config: armConfig, icon: "arm" },
+  { config: flywheelConfig, icon: "flywheel" },
+  { config: intakeConfig, icon: "intake" },
   {
     config: ratioFinderConfig,
-    icon: "screwdriver-wrench",
+    icon: "ratioFinder",
     title: "Ratio Finder",
   },
-  { config: ratioConfig, icon: "calculator" },
+  { config: ratioConfig, icon: "ratio" },
   { config: gearConfig, icon: "gears", title: "Gears Calculator" },
-  { config: driveConfig, icon: "gauge-high", title: "Drivetrain Calculator" },
+  { config: driveConfig, icon: "gears", title: "Drivetrain Calculator" },
 ];
 
 const referenceTools: Tool[] = [
-  { config: motorsConfig, icon: "bolt", title: "Motors" },
-  { config: compressorsConfig, icon: "gauge-high", title: "Compressors" },
-  { config: utilConfig, icon: "gear", title: "Utilities" },
-  { config: aboutConfig, icon: "circle-info", title: "About" },
+  { config: motorsConfig, icon: "motor", title: "Motors" },
+  { config: compressorsConfig, icon: "motor", title: "Compressors" },
+  { config: utilConfig, icon: "utilities", title: "Utilities" },
+  { config: aboutConfig, icon: "about", title: "About" },
 ];
 
 const resources: Resource[] = [
@@ -98,7 +99,7 @@ function ToolCard({ tool }: { tool: Tool }): JSX.Element {
   return (
     <Link className="tool-row" to={tool.config.url}>
       <span className="tool-row__icon" aria-hidden="true">
-        <Icon name={tool.icon} />
+        <RecalcIcon name={tool.icon} />
       </span>
       <span className="tool-row__title">{tool.title ?? tool.config.title}</span>
       <span className="tool-row__action" aria-hidden="true">

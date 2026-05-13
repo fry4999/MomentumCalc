@@ -172,6 +172,12 @@
   height: 2.55rem;
   justify-content: center;
   width: 2.55rem;
+
+  svg {
+    display: block;
+    height: 1.32rem;
+    width: 1.32rem;
+  }
 }
 
 .tool-row__title,
