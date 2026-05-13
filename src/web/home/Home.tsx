@@ -20,8 +20,8 @@ import utilConfig from "web/info/util";
 
 type Tool = {
   config: PageConfig;
-  label: string;
   icon: string;
+  title?: string;
 };
 
 type Resource = {
@@ -31,84 +31,28 @@ type Resource = {
 };
 
 const calculatorTools: Tool[] = [
-  {
-    config: armConfig,
-    label: "Motion",
-    icon: "ruler-combined",
-  },
-  {
-    config: driveConfig,
-    label: "Motion",
-    icon: "gauge-high",
-  },
-  {
-    config: flywheelConfig,
-    label: "Motion",
-    icon: "bolt",
-  },
-  {
-    config: linearConfig,
-    label: "Motion",
-    icon: "ruler",
-  },
-  {
-    config: beltsConfig,
-    label: "Transmission",
-    icon: "code-branch",
-  },
-  {
-    config: chainConfig,
-    label: "Transmission",
-    icon: "link",
-  },
-  {
-    config: gearConfig,
-    label: "Transmission",
-    icon: "gears",
-  },
-  {
-    config: ratioConfig,
-    label: "Transmission",
-    icon: "calculator",
-  },
+  { config: beltsConfig, icon: "code-branch" },
+  { config: chainConfig, icon: "link" },
+  { config: linearConfig, icon: "ruler", title: "Linear Mechanism" },
+  { config: armConfig, icon: "ruler-combined" },
+  { config: flywheelConfig, icon: "bolt" },
+  { config: intakeConfig, icon: "arrow-right" },
   {
     config: ratioFinderConfig,
-    label: "Transmission",
     icon: "screwdriver-wrench",
+    title: "Ratio Finder",
   },
-  {
-    config: intakeConfig,
-    label: "Mechanism",
-    icon: "arrow-right",
-  },
-  {
-    config: pneumaticsConfig,
-    label: "Mechanism",
-    icon: "compress-arrows-alt",
-  },
+  { config: ratioConfig, icon: "calculator" },
+  { config: gearConfig, icon: "gears", title: "Gears Calculator" },
+  { config: driveConfig, icon: "gauge-high", title: "Drivetrain Calculator" },
+  { config: pneumaticsConfig, icon: "compress-arrows-alt" },
 ];
 
 const referenceTools: Tool[] = [
-  {
-    config: motorsConfig,
-    label: "Reference",
-    icon: "bolt",
-  },
-  {
-    config: compressorsConfig,
-    label: "Reference",
-    icon: "gauge-high",
-  },
-  {
-    config: utilConfig,
-    label: "Utilities",
-    icon: "gear",
-  },
-  {
-    config: aboutConfig,
-    label: "Project",
-    icon: "circle-info",
-  },
+  { config: motorsConfig, icon: "bolt", title: "Motors" },
+  { config: compressorsConfig, icon: "gauge-high", title: "Compressors" },
+  { config: utilConfig, icon: "gear", title: "Utilities" },
+  { config: aboutConfig, icon: "circle-info", title: "About" },
 ];
 
 const resources: Resource[] = [
@@ -123,7 +67,7 @@ const resources: Resource[] = [
     note: "Fast searchable manual mirror",
   },
   {
-    name: "FRC Q&A",
+    name: "2026 Q&A",
     url: "https://frc-qa.firstinspires.org/",
     note: "Official clarifications",
   },
@@ -144,17 +88,21 @@ const resources: Resource[] = [
   },
 ];
 
-function ToolRow({ tool }: { tool: Tool }): JSX.Element {
+function SectionDivider({ title }: { title: string }): JSX.Element {
+  return (
+    <div className="section-divider">
+      <span>{title}</span>
+    </div>
+  );
+}
+
+function ToolCard({ tool }: { tool: Tool }): JSX.Element {
   return (
     <Link className="tool-row" to={tool.config.url}>
       <span className="tool-row__icon" aria-hidden="true">
         <Icon name={tool.icon} />
       </span>
-      <span className="tool-row__content">
-        <span className="tool-row__meta">{tool.label}</span>
-        <span className="tool-row__title">{tool.config.title}</span>
-        <span className="tool-row__description">{tool.config.description}</span>
-      </span>
+      <span className="tool-row__title">{tool.title ?? tool.config.title}</span>
       <span className="tool-row__action" aria-hidden="true">
         <Icon name="arrow-right" />
       </span>
@@ -186,70 +134,52 @@ export default function Home(): JSX.Element {
 
       <main className="dashboard-home">
         <section className="dashboard-hero">
-          <div>
-            <p className="home-eyebrow">4999-inspired robotics tools</p>
-            <h1>Mechanisim Calculator</h1>
-            <p className="dashboard-hero__copy">
-              A simple, browser-only workspace for checking robot mechanisms
-              quickly. No accounts, no saved team data, no backend.
-            </p>
-          </div>
-
+          <p className="home-eyebrow">4999-inspired mechanism tools</p>
+          <h1>Mechanisim Calculator</h1>
+          <p className="dashboard-hero__copy">
+            A fast, browser-only mechanical design calculator for FIRST
+            Robotics. Static hosted, no accounts, and no stored team data.
+          </p>
           <div className="hero-status" aria-label="Project principles">
             <span>Static hosted</span>
-            <span>No data storage</span>
+            <span>No backend</span>
             <span>Fast to operate</span>
           </div>
         </section>
 
         <section className="tool-section" aria-labelledby="calculator-heading">
-          <div className="section-heading">
-            <div>
-              <p className="home-eyebrow">Launch</p>
-              <h2 id="calculator-heading">Calculators</h2>
-            </div>
-            <p>
-              Pick the mechanism area first, then tune the numbers inside the
-              calculator.
-            </p>
-          </div>
-
+          <SectionDivider title="Calculators" />
+          <h2 id="calculator-heading" className="is-sr-only">
+            Calculators
+          </h2>
           <div className="tool-list">
             {calculatorTools.map((tool) => (
-              <ToolRow key={tool.config.url} tool={tool} />
+              <ToolCard key={tool.config.url} tool={tool} />
             ))}
           </div>
         </section>
 
-        <section className="home-grid" aria-label="References and resources">
-          <div className="utility-panel">
-            <div className="section-heading section-heading--compact">
-              <div>
-                <p className="home-eyebrow">Lookup</p>
-                <h2>Reference</h2>
-              </div>
-            </div>
-
-            <div className="compact-tool-list">
-              {referenceTools.map((tool) => (
-                <ToolRow key={tool.config.url} tool={tool} />
-              ))}
-            </div>
+        <section className="tool-section" aria-labelledby="info-heading">
+          <SectionDivider title="Information" />
+          <h2 id="info-heading" className="is-sr-only">
+            Information
+          </h2>
+          <div className="tool-list tool-list--reference">
+            {referenceTools.map((tool) => (
+              <ToolCard key={tool.config.url} tool={tool} />
+            ))}
           </div>
+        </section>
 
-          <div className="utility-panel">
-            <div className="section-heading section-heading--compact">
-              <div>
-                <p className="home-eyebrow">External</p>
-                <h2>Resources</h2>
-              </div>
-            </div>
-
-            <div className="resource-list">
-              {resources.map((resource) => (
-                <ResourceLink key={resource.url} resource={resource} />
-              ))}
-            </div>
+        <section className="tool-section" aria-labelledby="shortcut-heading">
+          <SectionDivider title="Shortcuts" />
+          <h2 id="shortcut-heading" className="is-sr-only">
+            Shortcuts
+          </h2>
+          <div className="resource-list">
+            {resources.map((resource) => (
+              <ResourceLink key={resource.url} resource={resource} />
+            ))}
           </div>
         </section>
       </main>

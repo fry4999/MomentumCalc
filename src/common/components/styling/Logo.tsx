@@ -6,7 +6,7 @@ export default function Logo(props: {
   const baseUrl = import.meta.env.BASE_URL;
 
   return (
-    <span className="logo-lockup">
+    <span className={["logo-lockup", `logo-lockup--${color}`].join(" ")}>
       <img
         src={`${baseUrl}logo/motor.svg`}
         className={["svg", `svg-${color}`, "logo-img"].join(" ")}
