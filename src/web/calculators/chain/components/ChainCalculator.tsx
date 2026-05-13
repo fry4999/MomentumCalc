@@ -59,6 +59,12 @@ export default function ChainCalculator(): JSX.Element {
   const [largerLinks, setLargerLinks] = useState(
     calculate.largerLinks(results),
   );
+  const [smallerDifference, setSmallerDifference] = useState(
+    smallerCenter.sub(get.desiredCenter),
+  );
+  const [largerDifference, setLargerDifference] = useState(
+    largerCenter.sub(get.desiredCenter),
+  );
 
   useEffect(() => {
     const results = calculateCenters(
@@ -69,10 +75,15 @@ export default function ChainCalculator(): JSX.Element {
       get.allowHalfLinks,
     );
 
-    setSmallerCenter(results.smaller.distance.add(get.extraCenter));
+    const smallerCenter = results.smaller.distance.add(get.extraCenter);
+    const largerCenter = results.larger.distance.add(get.extraCenter);
+
+    setSmallerCenter(smallerCenter);
     setSmallerLinks(results.smaller.links);
-    setLargerCenter(results.larger.distance.add(get.extraCenter));
+    setSmallerDifference(smallerCenter.sub(get.desiredCenter));
+    setLargerCenter(largerCenter);
     setLargerLinks(results.larger.links);
+    setLargerDifference(largerCenter.sub(get.desiredCenter));
   }, [
     get.chain,
     get.p1Teeth,
@@ -114,6 +125,14 @@ export default function ChainCalculator(): JSX.Element {
       />
     );
   }
+
+  const hasSuggestedChain = smallerLinks !== 0 || largerLinks !== 0;
+  const smallerIsSuggested =
+    hasSuggestedChain && smallerDifference.abs().lte(largerDifference.abs());
+
+  const SuggestedBadge = (): JSX.Element => (
+    <span className="chain-suggested-badge">Suggested</span>
+  );
 
   return (
     <>
@@ -218,7 +237,11 @@ export default function ChainCalculator(): JSX.Element {
             </Column>
           </Columns>
 
-          <Divider color="primary">Smaller Chain</Divider>
+          <Divider color="primary">
+            <span className="chain-divider-label">
+              Smaller Chain {smallerIsSuggested ? <SuggestedBadge /> : null}
+            </span>
+          </Divider>
           <Columns formColumns multiline>
             <Column fullhdPercentage={0.4} percentage={1}>
               <SingleInputLine label="Chain Links" id="smallerLinks">
@@ -238,8 +261,25 @@ export default function ChainCalculator(): JSX.Element {
               </SingleInputLine>
             </Column>
           </Columns>
+          <SingleInputLine
+            label="Difference From Target"
+            id="smallerDifference"
+          >
+            <MeasurementOutput
+              stateHook={[smallerDifference, setSmallerDifference]}
+              numberRoundTo={4}
+              defaultUnit="in"
+            />
+          </SingleInputLine>
 
-          <Divider color="primary">Larger Chain</Divider>
+          <Divider color="primary">
+            <span className="chain-divider-label">
+              Larger Chain{" "}
+              {hasSuggestedChain && !smallerIsSuggested ? (
+                <SuggestedBadge />
+              ) : null}
+            </span>
+          </Divider>
           <Columns formColumns multiline>
             <Column fullhdPercentage={0.4} percentage={1}>
               <SingleInputLine label="Chain Links" id="largerLinks">
@@ -259,6 +299,13 @@ export default function ChainCalculator(): JSX.Element {
               </SingleInputLine>
             </Column>
           </Columns>
+          <SingleInputLine label="Difference From Target" id="largerDifference">
+            <MeasurementOutput
+              stateHook={[largerDifference, setLargerDifference]}
+              numberRoundTo={4}
+              defaultUnit="in"
+            />
+          </SingleInputLine>
         </Column>
         <Column>{cheatSheet}</Column>
       </Columns>

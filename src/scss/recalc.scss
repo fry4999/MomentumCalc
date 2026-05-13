@@ -189,6 +189,83 @@
   transform: translateX(2px);
 }
 
+.chain-divider-label {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.chain-suggested-badge {
+  background-color: rgba(39, 174, 96, 0.12);
+  border: 1px solid rgba(39, 174, 96, 0.28);
+  border-radius: 999px;
+  color: #217a46;
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.23rem 0.42rem;
+  text-transform: none;
+}
+
+.cots-sprocket-sku {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+
+  a {
+    font-weight: 700;
+  }
+}
+
+.cots-sprocket-vendor {
+  border: 1px solid rgba($c5, 0.28);
+  border-radius: 999px;
+  color: $c7;
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.22rem 0.4rem;
+}
+
+.cots-sprocket-vendor--andymark {
+  background-color: rgba(244, 165, 35, 0.14);
+  border-color: rgba(244, 165, 35, 0.32);
+  color: #8a5611;
+}
+
+.cots-sprocket-vendor--rev {
+  background-color: rgba(235, 87, 87, 0.12);
+  border-color: rgba(235, 87, 87, 0.32);
+  color: #9f2f2f;
+}
+
+.cots-sprocket-vendor--ttb {
+  background-color: rgba(39, 174, 96, 0.12);
+  border-color: rgba(39, 174, 96, 0.32);
+  color: #217a46;
+}
+
+.cots-sprocket-vendor--vexpro {
+  background-color: rgba(127, 82, 255, 0.12);
+  border-color: rgba(127, 82, 255, 0.32);
+  color: #5732bd;
+}
+
+.cots-sprocket-vendor--wcp {
+  background-color: rgba($c5, 0.12);
+  border-color: rgba($c5, 0.32);
+  color: $c7;
+}
+
+.cots-sprocket-divider td {
+  background-color: rgba($c5, 0.18);
+  height: 1px;
+  padding: 0 !important;
+}
+
 @media (max-width: 900px) {
   .tool-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
