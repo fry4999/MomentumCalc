@@ -52,19 +52,26 @@ export default function IntakeCalculator(): JSX.Element {
             <Column>
               <b>Driven</b>
             </Column>
+            <Column narrow />
           </Columns>
           {get.ratioPairs.pairs.map((rp, i) => (
-            <>
+            <div key={`${get.ratioPairs.pairs.length}-${i}`}>
               <RatioPairInput
-                label={`Stage ${i}`}
+                canRemove={get.ratioPairs.pairs.length > 1 && i > 0}
+                label={`Stage ${i + 1}`}
+                onRemove={() =>
+                  set.setRatioPairs((current) => current.removeAt(i))
+                }
                 ratioPair={rp}
+                stageIndex={i}
                 stateHook={[get.ratioPairs, set.setRatioPairs]}
               />
-            </>
+            </div>
           ))}
 
           <Button
             color="primary"
+            faIcon="plus"
             onClick={() => {
               set.setRatioPairs(
                 new RatioPairList([...get.ratioPairs.pairs, [1, 1]]),

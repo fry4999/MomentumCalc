@@ -18,10 +18,7 @@ export default ratioConfig;
 export const RatioParamsV1 = {
   ratioPairs: withDefault(
     RatioPairParam,
-    new RatioPairList([
-      [18, 72],
-      [24, 48],
-    ]),
+    new RatioPairList([[18, 72]]),
   ),
 };
 export type RatioStateV1 = Stateify<typeof RatioParamsV1>;

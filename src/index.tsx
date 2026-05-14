@@ -18,9 +18,11 @@ import {
   faGears,
   faInfoCircle,
   faLink,
+  faPlus,
   faRuler,
   faRulerCombined,
   faScrewdriverWrench,
+  faTrash,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
@@ -47,9 +49,11 @@ library.add(
   faGears,
   faInfoCircle,
   faLink,
+  faPlus,
   faRuler,
   faRulerCombined,
   faScrewdriverWrench,
+  faTrash,
   faUsers,
 );
 

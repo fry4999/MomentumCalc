@@ -43,6 +43,26 @@ export default class RatioPairList extends Model {
     return this;
   }
 
+  replaceAt(index: number, newPair: RatioPair): RatioPairList {
+    if (index < 0 || index >= this.pairs.length) {
+      return this;
+    }
+
+    return new RatioPairList([
+      ...this.pairs.slice(0, index),
+      newPair,
+      ...this.pairs.slice(index + 1),
+    ]);
+  }
+
+  removeAt(index: number): RatioPairList {
+    if (this.pairs.length <= 1 || index < 0 || index >= this.pairs.length) {
+      return this;
+    }
+
+    return new RatioPairList(this.pairs.filter((_, i) => i !== index));
+  }
+
   calculateNetRatio(): Ratio {
     return new Ratio(
       this.pairs.reduce((acc, curr) => acc * (curr[0] / curr[1]), 1),
