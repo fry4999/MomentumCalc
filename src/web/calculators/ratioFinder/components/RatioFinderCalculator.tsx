@@ -106,7 +106,7 @@ function MotionMethodCell(props: {
         }
 
         tableRows.push(
-          <tr key={`${Math.random()}`}>
+          <tr key={`${bore}-${mmType}-${mm.partNumber}-${mm.bore}-${i}`}>
             {firstTd}
             {secondTd}
             <td style={{ width: "100%", whiteSpace: "nowrap" }}>
@@ -198,20 +198,65 @@ function GearboxRows(props: {
   );
 }
 
+function clampStageCount(value: number): number {
+  if (!Number.isFinite(value)) {
+    return 1;
+  }
+
+  return Math.min(2, Math.max(1, Math.floor(value)));
+}
+
 export default function RatioFinderCalculator(): JSX.Element {
   const [get, set] = useGettersSetters(
     RatioFinderState.getState() as RatioFinderStateV1,
   );
 
   const [gearboxes, setGearboxes] = useState([] as Gearbox[]);
+  const [resultCount, setResultCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [displayNum, setDisplayNum] = useState(50);
+  const setMinStageCount = (value: React.SetStateAction<number>) =>
+    set.setMinStages((previous) =>
+      clampStageCount(typeof value === "function" ? value(previous) : value),
+    );
+  const setMaxStageCount = (value: React.SetStateAction<number>) =>
+    set.setMaxStages((previous) =>
+      clampStageCount(typeof value === "function" ? value(previous) : value),
+    );
+  const displayedMaxStages = Math.max(
+    clampStageCount(get.minStages),
+    clampStageCount(get.maxStages),
+  );
 
   useEffect(() => {
+    let cancelled = false;
+
     setIsLoading(true);
-    worker.generateOptions(get).then((r) => {
-      setGearboxes(r.map((obj) => Gearbox.fromObj(obj)));
-      setIsLoading(false);
-    });
+    worker
+      .generateOptions(get, displayNum)
+      .then((r) => {
+        if (cancelled) {
+          return;
+        }
+
+        setResultCount(r.count);
+        setGearboxes(r.options.map((obj) => Gearbox.fromObj(obj)));
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        if (cancelled) {
+          return;
+        }
+
+        console.error(error);
+        setResultCount(0);
+        setGearboxes([]);
+        setIsLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, [
     get.startingBore,
     get.targetReduction,
@@ -254,9 +299,8 @@ export default function RatioFinderCalculator(): JSX.Element {
     get.forceStartingPinionSize,
     get.enableSplineXL,
     get.printablePulleys,
+    displayNum,
   ]);
-
-  const [displayNum, setDisplayNum] = useState(20);
 
   return (
     <>
@@ -285,7 +329,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                   <Column>
                     <SingleInputLine label="Min Stages">
                       <NumberInput
-                        stateHook={[get.minStages, set.setMinStages]}
+                        stateHook={[get.minStages, setMinStageCount]}
                         delay={500}
                       />
                     </SingleInputLine>
@@ -311,7 +355,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                   <Column>
                     <SingleInputLine label="Max Stages">
                       <NumberInput
-                        stateHook={[get.maxStages, set.setMaxStages]}
+                        stateHook={[get.maxStages, setMaxStageCount]}
                         delay={500}
                       />
                     </SingleInputLine>
@@ -446,7 +490,7 @@ export default function RatioFinderCalculator(): JSX.Element {
                 <div id="loading" />
               ) : (
                 <div className="is-size-5 p-2 has-text-centered">
-                  {gearboxes.length} gearboxes found
+                  {resultCount} gearboxes found
                 </div>
               )}
 
@@ -468,10 +512,6 @@ export default function RatioFinderCalculator(): JSX.Element {
                   <li>
                     Does not account for the fact that some MAXSpline & SplineXL
                     parts are interchangeable.
-                  </li>
-                  <li>
-                    3+ stage generation can be slow. Try limiting tooth ranges
-                    or reducing error threshold.
                   </li>
                   <li>
                     Enabling printed pulleys can be very slow. It uses pulleys
@@ -675,27 +715,27 @@ export default function RatioFinderCalculator(): JSX.Element {
               <thead>
                 <tr>
                   <th>Ratio</th>
-                  <th colSpan={get.maxStages * 2} style={{ width: "100%" }}>
+                  <th
+                    colSpan={displayedMaxStages * 2}
+                    style={{ width: "100%" }}
+                  >
                     Stages
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {gearboxes
-                  .sort((a, b) => a.compare(b, get.targetReduction))
-                  .slice(0, displayNum)
-                  .map((gb, i) => (
-                    <GearboxRows
-                      gearbox={gb}
-                      maxStages={get.maxStages}
-                      key={i}
-                    />
-                  ))}
+                {gearboxes.map((gb, i) => (
+                  <GearboxRows
+                    gearbox={gb}
+                    maxStages={displayedMaxStages}
+                    key={i}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
-          {gearboxes.length - displayNum > 20 && (
-            <>{gearboxes.length - displayNum} more...</>
+          {resultCount - gearboxes.length > 0 && (
+            <>{resultCount - gearboxes.length} more...</>
           )}
         </Column>
       </Columns>

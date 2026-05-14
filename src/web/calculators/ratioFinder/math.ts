@@ -17,10 +17,9 @@ import {
   Stage,
 } from "common/models/Gearbox";
 import { expose } from "common/tooling/promise-worker";
-import { combinationsWithReplacement, permutations } from "common/tooling/util";
+import { combinationsWithReplacement } from "common/tooling/util";
 import { RatioFinderStateV1 } from "web/calculators/ratioFinder";
 
-import cloneDeep from "lodash/cloneDeep";
 import max from "lodash/max";
 import min from "lodash/min";
 
@@ -43,6 +42,15 @@ import wcpGears from "common/models/data/cots/wcp/gears.json";
 import wcpPulleys from "common/models/data/cots/wcp/pulleys.json";
 import wcpSprockets from "common/models/data/cots/wcp/sprockets.json";
 
+type GearboxObj = ReturnType<Gearbox["toObj"]>;
+
+export type RatioFinderSearchResult = {
+  count: number;
+  options: GearboxObj[];
+};
+
+const DEFAULT_RESULT_LIMIT = 50;
+
 function stagesFromMinToMax(
   min: number,
   max: number,
@@ -60,7 +68,15 @@ function stagesFromMinToMax(
   }
 
   for (let i = 0; i < additionalStartingSizes.length; i++) {
+    if (additionalStartingSizes[i] <= 0) {
+      continue;
+    }
+
     for (let j = min; j <= max; j++) {
+      if (additionalStartingSizes[i] === j) {
+        continue;
+      }
+
       stages.push(new Stage(additionalStartingSizes[i], j, [], []));
     }
   }
@@ -200,7 +216,163 @@ function filterSprockets(
     );
 }
 
-export function generateOptions(state: RatioFinderStateV1) {
+function normalizedStageBounds(state: RatioFinderStateV1): {
+  minStages: number;
+  maxStages: number;
+} {
+  const rawMin = Number.isFinite(state.minStages) ? state.minStages : 1;
+  const rawMax = Number.isFinite(state.maxStages) ? state.maxStages : 2;
+  const minStages = Math.max(1, Math.floor(Math.min(rawMin, rawMax)));
+  const maxStages = Math.min(
+    2,
+    Math.max(minStages, Math.floor(Math.max(rawMin, rawMax))),
+  );
+
+  return { minStages, maxStages };
+}
+
+function cloneStage(stage: Stage): Stage {
+  return new Stage(
+    stage.driving,
+    stage.driven,
+    [...stage.drivingMethods],
+    [...stage.drivenMethods],
+  );
+}
+
+function isRatioInRange(ratio: number, lower: number, upper: number): boolean {
+  return ratio >= lower && ratio <= upper;
+}
+
+function lowerBound(
+  ratios: { ratio: number; stage: Stage }[],
+  target: number,
+): number {
+  let low = 0;
+  let high = ratios.length;
+
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2);
+
+    if (ratios[mid].ratio < target) {
+      low = mid + 1;
+    } else {
+      high = mid;
+    }
+  }
+
+  return low;
+}
+
+function motionMethodScore(gearbox: Gearbox): number {
+  return gearbox.stages.reduce(
+    (total, stage) =>
+      total + stage.drivingMethods.length + stage.drivenMethods.length,
+    0,
+  );
+}
+
+function compareGearboxes(targetReduction: number) {
+  return (a: Gearbox, b: Gearbox): number =>
+    Math.abs(a.getRatio() - targetReduction) -
+      Math.abs(b.getRatio() - targetReduction) ||
+    a.getStages() - b.getStages() ||
+    motionMethodScore(b) - motionMethodScore(a) ||
+    a.getMax() - b.getMax() ||
+    a.getMin() - b.getMin();
+}
+
+function buildValidGearbox(
+  stages: Stage[],
+  state: RatioFinderStateV1,
+): Gearbox | null {
+  const gearbox = new Gearbox(stages.map(cloneStage));
+
+  gearbox.filterStagesForOverlappingMotionMethods();
+  gearbox.filterStagesForOverlappingBores();
+  gearbox.filterStagesForOverlappingMotionMethods();
+  gearbox.filterStagesForStartingBore(state.startingBore);
+
+  if (
+    gearbox.hasMotionModes() &&
+    gearbox.startsWithBore(state.startingBore) &&
+    (state.forceStartingPinionSize
+      ? gearbox.startsWithTeeth(state.startingPinionSize)
+      : true) &&
+    !gearbox.containsPinionInBadPlace()
+  ) {
+    return gearbox;
+  }
+
+  return null;
+}
+
+function findGearboxOptions(
+  stages: Stage[],
+  state: RatioFinderStateV1,
+): Gearbox[] {
+  const { minStages, maxStages } = normalizedStageBounds(state);
+  const targetReduction = Number.isFinite(state.targetReduction)
+    ? Math.max(0, state.targetReduction)
+    : 0;
+  const reductionError = Number.isFinite(state.reductionError)
+    ? Math.max(0, state.reductionError)
+    : 0;
+  const lowerRatio = targetReduction - reductionError;
+  const upperRatio = targetReduction + reductionError;
+
+  if (upperRatio <= 0) {
+    return [];
+  }
+
+  const stageRatios = stages
+    .map((stage) => ({ stage, ratio: stage.getRatio() }))
+    .filter(({ ratio }) => Number.isFinite(ratio) && ratio > 0);
+  const sortedStageRatios = [...stageRatios].sort((a, b) => a.ratio - b.ratio);
+  const options: Gearbox[] = [];
+
+  const addIfValid = (candidateStages: Stage[], ratio: number) => {
+    if (!isRatioInRange(ratio, lowerRatio, upperRatio)) {
+      return;
+    }
+
+    const gearbox = buildValidGearbox(candidateStages, state);
+    if (gearbox !== null) {
+      options.push(gearbox);
+    }
+  };
+
+  if (minStages <= 1 && maxStages >= 1) {
+    stageRatios.forEach(({ stage, ratio }) => {
+      addIfValid([stage], ratio);
+    });
+  }
+
+  if (minStages <= 2 && maxStages >= 2) {
+    stageRatios.forEach((first) => {
+      const minSecondRatio = lowerRatio / first.ratio;
+      const maxSecondRatio = upperRatio / first.ratio;
+      const startIndex = lowerBound(sortedStageRatios, minSecondRatio);
+
+      for (let i = startIndex; i < sortedStageRatios.length; i++) {
+        const second = sortedStageRatios[i];
+
+        if (second.ratio > maxSecondRatio) {
+          break;
+        }
+
+        addIfValid([first.stage, second.stage], first.ratio * second.ratio);
+      }
+    });
+  }
+
+  return options.sort(compareGearboxes(targetReduction));
+}
+
+export function generateOptions(
+  state: RatioFinderStateV1,
+  limit = DEFAULT_RESULT_LIMIT,
+): RatioFinderSearchResult {
   let stages = allPossibleSingleGearStages(state);
 
   if (state.enableMPs && state.enableREV) {
@@ -314,50 +486,21 @@ export function generateOptions(state: RatioFinderStateV1) {
     .filter((stage) => stage.drivenMethods.length > 0)
     .filter((stage) => stage.drivingMethods.length > 0);
 
-  let options: Gearbox[] = [];
-  for (let i = state.minStages; i <= state.maxStages; i++) {
-    const gbs: Gearbox[] = [];
+  const options = findGearboxOptions(stages, state);
+  const safeLimit =
+    Number.isFinite(limit) && limit > 0
+      ? Math.max(1, Math.floor(limit))
+      : DEFAULT_RESULT_LIMIT;
 
-    const iter = permutations(stages, i);
-    let curr = iter.next();
-
-    while (!curr.done) {
-      const gb = new Gearbox(curr.value);
-      const ratio = gb.getRatio();
-
-      if (
-        ratio >= state.targetReduction - state.reductionError &&
-        ratio <= state.targetReduction + state.reductionError
-      ) {
-        const newStages = cloneDeep(curr.value);
-        gb.stages = newStages;
-        gb.filterStagesForOverlappingMotionMethods();
-        gb.filterStagesForOverlappingBores();
-        gb.filterStagesForOverlappingMotionMethods();
-        gb.filterStagesForStartingBore(state.startingBore);
-
-        if (
-          gb.hasMotionModes() &&
-          gb.startsWithBore(state.startingBore) &&
-          (state.forceStartingPinionSize
-            ? gb.startsWithTeeth(state.startingPinionSize)
-            : true) &&
-          !gb.containsPinionInBadPlace()
-        ) {
-          gbs.push(gb);
-        }
-      }
-
-      curr = iter.next();
-    }
-
-    options = options.concat(gbs);
-  }
-
-  return options.map((gb) => gb.toObj());
+  return {
+    count: options.length,
+    options: options.slice(0, safeLimit).map((gb) => gb.toObj()),
+  };
 }
 
 const workerFunctions = { generateOptions };
-expose(workerFunctions);
+if (typeof WorkerGlobalScope !== "undefined") {
+  expose(workerFunctions);
+}
 type RatioFinderWorkerFunctions = typeof workerFunctions;
 export type { RatioFinderWorkerFunctions };

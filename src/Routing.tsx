@@ -45,6 +45,7 @@ const toolRoutePaths = new Set([
   gearboxConfig.url,
   ratioConfig.url,
   ratioFinderConfig.url,
+  "/ratioFinder",
   driveConfig.url,
   motorsConfig.url,
   compressorsConfig.url,
@@ -125,6 +126,10 @@ function App(): JSX.Element {
                   />
                   <Route
                     path={ratioFinderConfig.url}
+                    element={<ratioFinderConfig.component />}
+                  />
+                  <Route
+                    path="/ratioFinder"
                     element={<ratioFinderConfig.component />}
                   />
                   <Route

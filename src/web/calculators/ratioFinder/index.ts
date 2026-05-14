@@ -5,9 +5,10 @@ import { lazy } from "react";
 import { BooleanParam, NumberParam, withDefault } from "serialize-query-params";
 
 const ratioFinderConfig: PageConfig = {
-  url: "/ratioFinder",
-  title: "Ratio Finder (WIP)",
-  description: "Ratio Finder (WIP)",
+  url: "/ratio-finder",
+  title: "Ratio Finder",
+  description:
+    "Find real COTS gear, pulley, sprocket, and planetary reductions",
   version: 1,
   component: lazy(
     () =>
@@ -18,11 +19,11 @@ const ratioFinderConfig: PageConfig = {
 export default ratioFinderConfig;
 
 export const RatioFinderParamsV1 = {
-  targetReduction: withDefault(NumberParam, 15),
-  reductionError: withDefault(NumberParam, 0.1),
+  targetReduction: withDefault(NumberParam, 20),
+  reductionError: withDefault(NumberParam, 0.25),
   minStages: withDefault(NumberParam, 1),
   maxStages: withDefault(NumberParam, 2),
-  startingBore: withDefault(BoreParam, "NEO"),
+  startingBore: withDefault(BoreParam, "SplineXS"),
   forceStartingPinionSize: withDefault(BooleanParam, false),
   startingPinionSize: withDefault(NumberParam, 14),
   printablePulleys: withDefault(BooleanParam, false),
@@ -31,7 +32,7 @@ export const RatioFinderParamsV1 = {
   enableMPs: withDefault(BooleanParam, true),
   enableSports: withDefault(BooleanParam, true),
 
-  enableGT2: withDefault(BooleanParam, true),
+  enableGT2: withDefault(BooleanParam, false),
   enableHTD: withDefault(BooleanParam, true),
   enableRT25: withDefault(BooleanParam, true),
   minPulleyTeeth: withDefault(NumberParam, 8),
@@ -43,8 +44,8 @@ export const RatioFinderParamsV1 = {
   maxSprocketTeeth: withDefault(NumberParam, 84),
 
   enable20DPGears: withDefault(BooleanParam, true),
-  enable32DPGears: withDefault(BooleanParam, true),
-  minGearTeeth: withDefault(NumberParam, 7),
+  enable32DPGears: withDefault(BooleanParam, false),
+  minGearTeeth: withDefault(NumberParam, 6),
   maxGearTeeth: withDefault(NumberParam, 84),
   enableNEOPinions: withDefault(BooleanParam, true),
   enableFalconPinions: withDefault(BooleanParam, true),
@@ -60,9 +61,9 @@ export const RatioFinderParamsV1 = {
   enableTTB: withDefault(BooleanParam, true),
 
   enable12HexBore: withDefault(BooleanParam, true),
-  enable38HexBore: withDefault(BooleanParam, true),
-  enableBearingBore: withDefault(BooleanParam, true),
-  enable875Bore: withDefault(BooleanParam, true),
+  enable38HexBore: withDefault(BooleanParam, false),
+  enableBearingBore: withDefault(BooleanParam, false),
+  enable875Bore: withDefault(BooleanParam, false),
   enableMaxSpline: withDefault(BooleanParam, true),
   enableSplineXL: withDefault(BooleanParam, true),
 };
